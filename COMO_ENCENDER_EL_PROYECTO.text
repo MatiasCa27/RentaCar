@@ -1,0 +1,26 @@
+1) Escribimos en el navegador:
+    http://localhost:8761
+
+2) Encendemos los microservicios:
+    NOTA: RUN
+            -> src
+                -> main
+                    -> java
+                        -> MS-ServerApplication.java
+    
+    A) ms-eureka-server
+    B) ms-gateway
+    C) ms-clientes
+    D) ms-catalogo
+    E) ms-tarifas
+    F) ms-empleados
+    G) ms-renta
+    H) ms-pagos
+
+3) Verificar que esten todos UP
+
+4) Intentamos hacer un get con postman: 
+    http://localhost:8080/clientes/listar
+
+5) Ir probando PUT, GET, ETC:
+    EJEMPLO: GET http://localhost:8080/api/clientes
