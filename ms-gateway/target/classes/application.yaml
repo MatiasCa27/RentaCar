@@ -1,0 +1,84 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ms-gateway
+  cloud:
+    gateway:
+      routes:
+      
+        - id: ms-clientes
+          uri: lb://ms-clientes
+          predicates:
+            - Path=/api/clientes/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-catalogo
+          uri: lb://ms-catalogo
+          predicates:
+            - Path=/api/autos/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-ubicaciones
+          uri: lb://ms-ubicaciones
+          predicates:
+            - Path=/api/ubicaciones/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-empleados
+          uri: lb://ms-empleados
+          predicates:
+            - Path=/api/empleados/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-renta
+          uri: lb://ms-renta
+          predicates:
+            - Path=/api/rentas/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-pagos
+          uri: lb://ms-pagos
+          predicates:
+            - Path=/api/pagos/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-inspeccion
+          uri: lb://ms-inspeccion
+          predicates:
+            - Path=/api/inspecciones/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-mantenimiento
+          uri: lb://ms-mantenimiento
+          predicates:
+            - Path=/api/mantenimientos/**
+          filters:
+            - StripPrefix=0
+
+        - id: ms-tarifas
+          uri: lb://ms-tarifas
+          predicates:
+            - Path=/api/tarifas/**
+          filters:
+            - StripPrefix=0
+            
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
