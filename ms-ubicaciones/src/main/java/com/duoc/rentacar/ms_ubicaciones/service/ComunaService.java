@@ -12,51 +12,41 @@ import com.duoc.rentacar.ms_ubicaciones.model.Comuna;
 import com.duoc.rentacar.ms_ubicaciones.repository.ComunaRepository;
 
 @Service
-public class ComunaService {
-
-    private static final Logger logger =
-            LoggerFactory.getLogger(ComunaService.class);
+public class ComunaService
+{
+    private static final Logger logger = LoggerFactory.getLogger(ComunaService.class);
 
     @Autowired
     private ComunaRepository comunaRepository;
 
-    public List<Comuna> listarComunas() {
-
+    public List<Comuna> listarComunas()
+    {
         logger.info("Consultando todas las comunas disponibles");
-
         return comunaRepository.findAll();
     }
 
-    public Comuna guardar(Comuna comuna) {
-
-        logger.info("Registrando nueva comuna: {}",
-                comuna.getNombre_comuna());
-
+    public Comuna guardar(Comuna comuna)
+    {
+        logger.info("Registrando nueva comuna: {}", comuna.getNombre_comuna());
         return comunaRepository.save(comuna);
     }
 
-    public Comuna buscarPorId(Long id) {
-
+    public Comuna buscarPorId(Long id)
+    {
         logger.info("Buscando comuna con ID: {}", id);
-
         return comunaRepository.findById(id).orElse(null);
     }
 
-    public Comuna actualizar(Long id, Comuna comuna) {
-
+    public Comuna actualizar(Long id, Comuna comuna)
+    {
         logger.info("Actualizando comuna con ID: {}", id);
+        
+        Comuna comunaExistente = comunaRepository.findById(id).orElse(null);
 
-        Comuna comunaExistente =
-                comunaRepository.findById(id).orElse(null);
-
-        if (comunaExistente != null) {
-
-            comunaExistente.setNombre_comuna(
-                    comuna.getNombre_comuna());
-
-            comunaExistente.setRegion(
-                    comuna.getRegion());
-
+        if (comunaExistente != null)
+        {
+            comunaExistente.setNombre_comuna(comuna.getNombre_comuna());    
+            comunaExistente.setRegion(comuna.getRegion());
             return comunaRepository.save(comunaExistente);
         }
 

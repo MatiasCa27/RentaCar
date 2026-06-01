@@ -7,6 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface TarifaRepository extends JpaRepository<Tarifa, Long> {
-
     Optional<Tarifa> findByIdTipoAutoRef(Long idTipoAutoRef);
 }

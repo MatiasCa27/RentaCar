@@ -1,6 +1,10 @@
 package com.duoc.rentacar.ms_renta.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +15,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "RENTA_AUTO")
+@Table(name = "RentaAuto")
 @Data
 public class Renta {
 

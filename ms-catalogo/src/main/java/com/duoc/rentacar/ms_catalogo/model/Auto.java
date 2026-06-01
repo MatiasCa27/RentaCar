@@ -11,25 +11,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "AUTO")
+@Table(name = "auto")
 @Data
 public class Auto {
 
     @Id
     @NotBlank(message = "La patente no puede estar en blanco")
     @Size(min = 6, max = 6, message = "La patente debe tener 6 caracteres")
-    @Column(name = "P_AUTO", length = 6)
+    @Column(name = "p_auto", length = 6)
     private String patente;
 
     @NotBlank(message = "El modelo es obligatorio")
-    @Column(name = "MODELO_AUTO")
+    @Column(name = "modelo_auto")
     private String modelo;
 
     @Min(value = 0, message = "El valor no puede ser negativo")
-    @Column(name = "VALOR_DIARIO")
+    @Column(name = "valor_diario")
     private Double valorRentaDia;
 
     @ManyToOne
-    @JoinColumn(name = "ID_MARCA", nullable = false)
+    @JoinColumn(name = "id_marca", nullable = false)
     private Marca marca;
 }

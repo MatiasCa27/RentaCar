@@ -1,20 +1,28 @@
 package com.duoc.rentacar.ms_inspeccion.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+
 import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "INSPECCION")
+@Table(name = "Inspeccion")
 @Data
-public class Inspeccion {
 
+public class Inspeccion
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_inspeccion;
 
-    @NotNull(message = "La fecha de inspección es obligatoria")
+    @NotNull(message = "La fecha de inspeccion es obligatoria")
     private LocalDateTime fecha_inspeccion;
 
     @NotBlank(message = "El tipo de inspección (IN/OUT) es obligatorio")

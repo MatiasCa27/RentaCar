@@ -1,17 +1,25 @@
 package com.duoc.rentacar.ms_tarifas.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "TARIFA")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "Tarifa")
 @Data
-public class Tarifa {
 
+public class Tarifa
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTarifa;

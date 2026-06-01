@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Cliente {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_cliente;
@@ -36,10 +35,10 @@ public class Cliente {
     private String rut;
 
     @Column(nullable = false)
-    @Email(message = "Correo inválido")
+    @Email(message = "Correo invalido")
     private String correo;
 
     @Column(nullable = false)
-    @NotBlank(message = "El teléfono es obligatorio")
+    @NotBlank(message = "El telefono es obligatorio")
     private String telefono;
 }

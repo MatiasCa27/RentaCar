@@ -10,11 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class MsMantenimientoApplication {
 
 	public static void main(String[] args) {
-
-		SpringApplication.run(
-				MsMantenimientoApplication.class,
-				 args
-		);
+		SpringApplication.run(MsMantenimientoApplication.class, args);
 	}
 
 }

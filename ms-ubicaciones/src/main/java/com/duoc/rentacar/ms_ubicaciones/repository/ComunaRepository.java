@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.duoc.rentacar.ms_ubicaciones.model.Comuna;
 
 @Repository
-public interface ComunaRepository extends JpaRepository<Comuna, Long> {
-
-}
+public interface ComunaRepository extends JpaRepository<Comuna, Long> {}

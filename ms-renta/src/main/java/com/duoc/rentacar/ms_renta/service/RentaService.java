@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RentaService {
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(RentaService.class);
+    private static final Logger logger = LoggerFactory.getLogger(RentaService.class);
 
     @Autowired
     private RentaRepository rentaRepository;
@@ -32,11 +31,9 @@ public class RentaService {
     public Renta realizarRenta(Renta renta) {
 
         if (renta == null) {
-
             logger.error(
                     "No se puede registrar una renta nula"
             );
-
             return null;
         }
 
@@ -44,64 +41,49 @@ public class RentaService {
                 "Iniciando proceso de renta para patente: {}",
                 renta.getPatente_auto_ref()
         );
-
-        Object auto =
-                autoClient.buscarPorPatente(
-                        renta.getPatente_auto_ref()
+        Object auto = autoClient.buscarPorPatente(renta.getPatente_auto_ref()
                 );
-
+                
         if (auto == null) {
-
             logger.error(
                     "Validación fallida: el auto no existe"
             );
-
             return null;
         }
 
-        Object cliente =
-                clienteClient.buscarPorId(
-                        renta.getRut_cliente_ref()
+        Object cliente = clienteClient.buscarPorId(renta.getRut_cliente_ref()
                 );
 
         if (cliente == null) {
-
             logger.error(
                     "Validación fallida: el cliente no existe"
             );
-
             return null;
         }
 
         logger.info(
                 "Validaciones remotas completadas correctamente"
         );
-
         return rentaRepository.save(renta);
     }
 
     public List<Renta> listarRentas() {
-
         logger.info(
                 "Consultando listado de rentas"
         );
-
         return rentaRepository.findAll();
     }
 
     public Renta buscarPorId(Long id) {
-
         logger.info(
                 "Buscando renta con ID: {}",
                 id
         );
-
         if (id == null) {
 
             logger.warn(
                     "Se intentó buscar una renta con ID nulo"
             );
-
             return null;
         }
 
@@ -109,43 +91,34 @@ public class RentaService {
     }
 
     public Renta actualizar(Long id, Renta renta) {
-
         logger.info(
                 "Actualizando renta con ID: {}",
                 id
         );
 
-        Renta rentaExistente =
-                rentaRepository.findById(id).orElse(null);
+        Renta rentaExistente = rentaRepository.findById(id).orElse(null);
 
         if (rentaExistente == null) {
-
             logger.warn(
                     "No existe renta con ID: {}",
                     id
             );
-
             return null;
         }
 
-        rentaExistente.setFecha_inicio(
-                renta.getFecha_inicio()
+        rentaExistente.setFecha_inicio(renta.getFecha_inicio()
         );
 
-        rentaExistente.setDias_renta(
-                renta.getDias_renta()
+        rentaExistente.setDias_renta(renta.getDias_renta()
         );
 
-        rentaExistente.setMonto_total(
-                renta.getMonto_total()
+        rentaExistente.setMonto_total(renta.getMonto_total()
         );
 
-        rentaExistente.setRut_cliente_ref(
-                renta.getRut_cliente_ref()
+        rentaExistente.setRut_cliente_ref(renta.getRut_cliente_ref()
         );
 
-        rentaExistente.setPatente_auto_ref(
-                renta.getPatente_auto_ref()
+        rentaExistente.setPatente_auto_ref(renta.getPatente_auto_ref()
         );
 
         return rentaRepository.save(rentaExistente);
