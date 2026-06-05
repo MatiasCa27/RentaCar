@@ -1,5 +1,8 @@
 package com.duoc.rentacar.ms_mantenimiento.controller;
 
+import com.duoc.rentacar.ms_mantenimiento.model.Mantenimiento;
+import com.duoc.rentacar.ms_mantenimiento.service.MantenimientoService;
+
 import java.util.List;
 
 import jakarta.validation.Valid;
@@ -8,57 +11,55 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import com.duoc.rentacar.ms_mantenimiento.model.Mantenimiento;
-import com.duoc.rentacar.ms_mantenimiento.service.MantenimientoService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/mantenimientos")
-public class MantenimientoController
-{
+@RequestMapping("/api/v1/mantenimientos")
+public class MantenimientoController {
+
     @Autowired
     private MantenimientoService mantenimientoService;
 
     @PostMapping
-    public ResponseEntity<Mantenimiento> crear(@Valid @RequestBody Mantenimiento mantenimiento)
-    {
+    public ResponseEntity<Mantenimiento> crear(@Valid @RequestBody Mantenimiento mantenimiento) {
         Mantenimiento nuevoMantenimiento = mantenimientoService.registrarIngreso(mantenimiento);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoMantenimiento);
     }
 
     @GetMapping("/auto/{patente}")
-    public ResponseEntity<List<Mantenimiento>> historial(@PathVariable String patente)
+    public ResponseEntity<List<Mantenimiento>> historial(@PathVariable String patente) {
         return ResponseEntity.ok(mantenimientoService.historialPorAuto(patente));
+    }
 
     @GetMapping
-    public ResponseEntity<List<Mantenimiento>> listar()
+    public ResponseEntity<List<Mantenimiento>> listar() {
         return ResponseEntity.ok(mantenimientoService.listarMantenimientos());
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mantenimiento> buscarPorId(@PathVariable Long id)
-    {
+    public ResponseEntity<Mantenimiento> buscarPorId(@PathVariable Long id) {
         Mantenimiento mantenimiento = mantenimientoService.buscarPorId(id);
 
-        if (mantenimiento == null)
+        if (mantenimiento == null) {
             return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok(mantenimiento);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Mantenimiento> actualizar(@PathVariable Long id, @Valid @RequestBody Mantenimiento mantenimiento)
-    {
+    public ResponseEntity<Mantenimiento> actualizar(@PathVariable Long id, @Valid @RequestBody Mantenimiento mantenimiento) {
         Mantenimiento actualizado = mantenimientoService.actualizar(id, mantenimiento);
 
-        if (actualizado == null)
+        if (actualizado == null) {
             return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok(actualizado);
     }

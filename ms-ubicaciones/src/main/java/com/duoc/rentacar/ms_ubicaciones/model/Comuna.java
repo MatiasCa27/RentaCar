@@ -12,12 +12,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "Comuna")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comuna {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_comuna;

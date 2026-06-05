@@ -26,17 +26,18 @@ public class UbicacionController
     @Autowired
     private ComunaService service;
 
-    @GetMapping("/comunas")
-    public ResponseEntity<List<Comuna>> obtenerComunas()
+    @GetMapping("/comunas") 
+    public ResponseEntity<List<Comuna>> obtenerComunas() {
         return ResponseEntity.ok(service.listarComunas());
+    }
 
     @PostMapping("/comunas")
-    public ResponseEntity<Comuna> crearComuna(@Valid @RequestBody Comuna comuna)
+    public ResponseEntity<Comuna> crearComuna(@Valid @RequestBody Comuna comuna) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(comuna));
+    }
 
     @GetMapping("/comunas/{id}")
-    public ResponseEntity<Comuna> obtenerComunaPorId(@PathVariable Long id)
-    {
+    public ResponseEntity<Comuna> obtenerComunaPorId(@PathVariable Long id) {
         Comuna comuna = service.buscarPorId(id);
         
         if (comuna != null)
@@ -46,8 +47,7 @@ public class UbicacionController
     }
 
     @PutMapping("/comunas/{id}")
-    public ResponseEntity<Comuna> actualizarComuna(@PathVariable Long id, @Valid @RequestBody Comuna comuna)
-    {
+    public ResponseEntity<Comuna> actualizarComuna(@PathVariable Long id, @Valid @RequestBody Comuna comuna) {
         Comuna actualizada = service.actualizar(id, comuna);
 
         if (actualizada != null)

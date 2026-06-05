@@ -1,24 +1,24 @@
 package com.duoc.rentacar.ms_mantenimiento.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Min;
 
 import lombok.Data;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "Mantenimiento")
 @Data
+public class Mantenimiento {
 
-public class Mantenimiento
-{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_mantenimiento;

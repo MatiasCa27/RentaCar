@@ -1,9 +1,9 @@
 package com.duoc.rentacar.ms_pagos.service;
 
-import java.util.List;
-
 import com.duoc.rentacar.ms_pagos.model.Pago;
 import com.duoc.rentacar.ms_pagos.repository.PagoRepository;
+
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +19,8 @@ public class PagoService {
     @Autowired
     private PagoRepository pagoRepository;
 
-    public Pago registrarPago(Pago pago)
-    {
-        if (pago == null)
-        {
+    public Pago registrarPago(Pago pago) {
+        if (pago == null) {
             logger.error("No se puede registrar un pago nulo");
             return null;
         }
@@ -32,18 +30,15 @@ public class PagoService {
         return pagoRepository.save(pago);
     }
 
-    public List<Pago> listarPagos()
-    {
+    public List<Pago> listarPagos() {
         logger.info("Consultando listado de pagos");
         return pagoRepository.findAll();
     }
 
-    public Pago buscarPorId(Long id)
-    {
+    public Pago buscarPorId(Long id) {
         logger.info("Buscando pago con ID: {}", id);
 
-        if (id == null)
-        {
+        if (id == null) {
             logger.warn("Se intentó buscar un pago con ID nulo");
             return null;
         }
@@ -51,14 +46,12 @@ public class PagoService {
         return pagoRepository.findById(id).orElse(null);
     }
 
-    public Pago actualizar(Long id, Pago pago)
-    {
+    public Pago actualizar(Long id, Pago pago) {
         logger.info("Actualizando pago con ID: {}", id);
 
         Pago pagoExistente = pagoRepository.findById(id).orElse(null);
 
-        if (pagoExistente == null)
-        {
+        if (pagoExistente == null) {
             logger.warn("Pago no encontrado con ID: {}", id);
             return null;
         }
