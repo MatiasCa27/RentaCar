@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Sucursal")
 @Data
 
-public class Sucursal
-{
+public class Sucursal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_sucursal;

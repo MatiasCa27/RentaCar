@@ -19,18 +19,15 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public List<Cliente> listarTodos()
-    {
+    public List<Cliente> listarTodos() {
         logger.info("Consultando listado de clientes");
         return clienteRepository.findAll();
     }
 
-    public Cliente buscarPorId(Long id_cliente)
-    {
+    public Cliente buscarPorId(Long id_cliente) {
         logger.info("Buscando cliente con ID: {}", id_cliente);
 
-        if (id_cliente == null)
-        {
+        if (id_cliente == null) {
             logger.warn("Se intentó buscar un cliente con ID nulo");
             return null;
         }
@@ -38,10 +35,9 @@ public class ClienteService {
         return clienteRepository.findById(id_cliente).orElse(null);
     }
 
-    public Cliente guardar(Cliente cliente)
-    {
-        if (cliente == null)
-        {
+    public Cliente guardar(Cliente cliente) {
+
+        if (cliente == null) {
             logger.error("No se puede guardar un cliente nulo");
             return null;
         }
@@ -50,14 +46,12 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente actualizar(Long id_cliente, Cliente clienteActualizado)
-    {
+    public Cliente actualizar(Long id_cliente, Cliente clienteActualizado) {
         logger.info("Actualizando cliente con ID: {}", id_cliente);
 
         Cliente clienteExistente = clienteRepository.findById(id_cliente).orElse(null);
 
-        if (clienteExistente == null)
-        {
+        if (clienteExistente == null) {
             logger.warn("Cliente no encontrado con ID: {}", id_cliente);
             return null;
         }
@@ -70,10 +64,9 @@ public class ClienteService {
         return clienteRepository.save(clienteExistente);
     }
 
-    public void eliminar(Long id_cliente)
-    {
-        if (id_cliente == null)
-        {
+    public void eliminar(Long id_cliente) {
+        
+        if (id_cliente == null) {
             logger.warn("Se intentó eliminar un cliente con ID nulo");
             return;
         }

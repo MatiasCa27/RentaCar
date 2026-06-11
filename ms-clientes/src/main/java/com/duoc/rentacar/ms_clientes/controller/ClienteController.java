@@ -1,11 +1,13 @@
 package com.duoc.rentacar.ms_clientes.controller;
 
+import com.duoc.rentacar.ms_clientes.model.Cliente;
+import com.duoc.rentacar.ms_clientes.service.ClienteService;
+
 import java.util.List;
 
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.duoc.rentacar.ms_clientes.model.Cliente;
-import com.duoc.rentacar.ms_clientes.service.ClienteService;
-
 @RestController
 @RequestMapping("/api/v1/clientes")
 public class ClienteController {
@@ -29,22 +28,23 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> listarTodos()
+    public ResponseEntity<List<Cliente>> listarTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
+    }
 
     @GetMapping("/{id_cliente}")
-    public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id_cliente)
-    {
+    public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id_cliente) {
         Cliente cliente = clienteService.buscarPorId(id_cliente);
-        if (cliente == null)
+
+        if (cliente == null) {
             return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok(cliente);
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> guardar(@Valid @RequestBody Cliente cliente)
-    {
+    public ResponseEntity<Cliente> guardar(@Valid @RequestBody Cliente cliente) {
         Cliente nuevoCliente = clienteService.guardar(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCliente);
     }
@@ -53,8 +53,9 @@ public class ClienteController {
     public ResponseEntity<Cliente> actualizar(@PathVariable Long id_cliente, @Valid @RequestBody Cliente cliente) {
         Cliente clienteActualizado = clienteService.actualizar(id_cliente, cliente);
 
-        if (clienteActualizado == null)
+        if (clienteActualizado == null) {
             return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok(clienteActualizado);
     }

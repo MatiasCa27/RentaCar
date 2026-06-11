@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Empleado")
 @Data
 
-public class Empleado
-{
+public class Empleado {
     @Id
     private Long numrun_emp; 
     private String dvrun_emp;

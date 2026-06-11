@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +18,13 @@ public class EmpleadoService {
     @Autowired
     private EmpleadoRepository empleadoRepository;
 
-    public List<Empleado> obtenerTodos()
-    {
+    public List<Empleado> obtenerTodos() {
         logger.info("Consultando nómina completa de empleados");
         return empleadoRepository.findAll();
+    
     }
 
-    public Empleado buscarPorId(Long numrun_emp)
-    {
+    public Empleado buscarPorId(Long numrun_emp) {
         logger.info("Buscando empleado con RUN: {}", numrun_emp);
         
         if (numrun_emp == null) {
@@ -37,10 +35,10 @@ public class EmpleadoService {
         return empleadoRepository.findById(numrun_emp).orElse(null);
     }
 
-    public Empleado registrar(Empleado empleado)
-    {    
-        if (empleado == null)
-        {
+    public Empleado registrar(Empleado empleado) {
+        
+        if (empleado == null) {
+
             logger.error("No se puede registrar un empleado nulo");
             return null;
         }
@@ -49,14 +47,12 @@ public class EmpleadoService {
         return empleadoRepository.save(empleado);
     }
 
-    public Empleado actualizar(Long numrun_emp, Empleado empleadoActualizado)
-    {
+    public Empleado actualizar(Long numrun_emp, Empleado empleadoActualizado) {
         logger.info("Actualizando empleado con RUN: {}", numrun_emp);
 
         Empleado empleadoExistente = empleadoRepository.findById(numrun_emp).orElse(null);
 
-        if (empleadoExistente == null)
-        {
+        if (empleadoExistente == null) {
             logger.warn("Empleado no encontrado con RUN: {}", numrun_emp);
             return null;
         }
@@ -71,8 +67,8 @@ public class EmpleadoService {
         return empleadoRepository.save(empleadoExistente);
     }
 
-    public void eliminar(Long numrun_emp)
-    {
+    public void eliminar(Long numrun_emp) {
+
         if (numrun_emp == null) {
             logger.warn("Se intentó eliminar un empleado con RUN nulo");
             return;
