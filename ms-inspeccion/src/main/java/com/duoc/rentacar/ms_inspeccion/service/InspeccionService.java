@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.duoc.rentacar.ms_inspeccion.model.Inspeccion;
 import com.duoc.rentacar.ms_inspeccion.repository.InspeccionRepository;
 
-import org.junit.jupiter.api.Test;
-
 @Service
 public class InspeccionService {
 
@@ -21,7 +19,6 @@ public class InspeccionService {
     @Autowired
     private InspeccionRepository inspeccionRepository;
 
-    @Test
     public Inspeccion registrarInspeccion(Inspeccion inspeccion) {
         
         if (inspeccion == null) {
