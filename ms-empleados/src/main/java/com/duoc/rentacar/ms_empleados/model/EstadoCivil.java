@@ -6,23 +6,26 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 import jakarta.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "EstadoCivil")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Data
-@Table(name = "EstadoCivil")
 public class EstadoCivil {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_estado_civil")
     private Long id_estado_civil;
 
-    @NotBlank(message = "La descripcion no puede quedadar en blanco")
+    @NotBlank(message = "La descripcion no puede quedar en blanco")
     @Column(name = "desc_estado_civil")
     private String desc_estado_civil;
 }

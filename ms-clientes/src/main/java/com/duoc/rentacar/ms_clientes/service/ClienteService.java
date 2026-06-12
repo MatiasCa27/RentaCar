@@ -1,5 +1,8 @@
 package com.duoc.rentacar.ms_clientes.service;
 
+import com.duoc.rentacar.ms_clientes.model.Cliente;
+import com.duoc.rentacar.ms_clientes.repository.ClienteRepository;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,9 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.duoc.rentacar.ms_clientes.model.Cliente;
-import com.duoc.rentacar.ms_clientes.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
@@ -36,7 +36,6 @@ public class ClienteService {
     }
 
     public Cliente guardar(Cliente cliente) {
-
         if (cliente == null) {
             logger.error("No se puede guardar un cliente nulo");
             return null;
@@ -65,7 +64,6 @@ public class ClienteService {
     }
 
     public void eliminar(Long id_cliente) {
-        
         if (id_cliente == null) {
             logger.warn("Se intentó eliminar un cliente con ID nulo");
             return;

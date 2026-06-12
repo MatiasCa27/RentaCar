@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/clientes")
+@RequestMapping("/api/v2/clientes")
 public class ClienteController {
 
     @Autowired
@@ -30,7 +30,6 @@ public class ClienteController {
     @GetMapping
     public ResponseEntity<List<Cliente>> listarTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
-
     }
 
     @GetMapping("/{id_cliente}")
@@ -46,10 +45,8 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<Cliente> guardar(@Valid @RequestBody Cliente cliente) {
-
         Cliente nuevoCliente = clienteService.guardar(cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoCliente);
-
     }
 
     @PutMapping("/{id_cliente}")
@@ -67,6 +64,5 @@ public class ClienteController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id_cliente) {
         clienteService.eliminar(id_cliente);
         return ResponseEntity.noContent().build();
-        
     }
 }

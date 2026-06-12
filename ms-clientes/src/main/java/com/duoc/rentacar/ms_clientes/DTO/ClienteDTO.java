@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class ClienteDTO {
 
     @NotBlank(message = "El nombre es obligatorio")

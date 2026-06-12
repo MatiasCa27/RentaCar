@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "ms-catalogo")
 public interface AutoClient {
 
-    @GetMapping("/api/autos/{patente}")
+    @GetMapping("/api/v2/autos/{patente}")
     Object buscarPorPatente(
             @PathVariable("patente") String patente);
 }

@@ -19,7 +19,7 @@ import com.duoc.rentacar.ms_inspeccion.service.InspeccionService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1/inspecciones")
+@RequestMapping("/api/v2/inspecciones")
 public class InspeccionController {
     
     @Autowired

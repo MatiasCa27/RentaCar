@@ -39,12 +39,13 @@ public class ComunaService {
 
         Comuna comunaExistente = comunaRepository.findById(id).orElse(null);
 
-        if (comunaExistente != null) {
-            comunaExistente.setNombre_comuna(comuna.getNombre_comuna());
-            comunaExistente.setRegion(comuna.getRegion());
-            return comunaRepository.save(comunaExistente);
+        if (comunaExistente == null) {
+            return null;
         }
 
-        return null;
+        comunaExistente.setNombre_comuna(comuna.getNombre_comuna());
+        comunaExistente.setRegion(comuna.getRegion());
+
+        return comunaRepository.save(comunaExistente);
     }
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/tarifas")
+@RequestMapping("/api/v2/tarifas")
 public class TarifaController {
 
     @Autowired
@@ -35,23 +35,29 @@ public class TarifaController {
     @GetMapping("/tipo/{idTipo}")
     public ResponseEntity<Tarifa> buscar(@PathVariable String idTipo) {
         Tarifa tarifa = service.obtenerPorTipoAuto(idTipo);
-        return tarifa != null ? ResponseEntity.ok(tarifa) : ResponseEntity.notFound().build();
+
+        if (tarifa == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(tarifa);
     }
 
     @PostMapping
     public ResponseEntity<Tarifa> guardar(@Valid @RequestBody Tarifa tarifa) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(tarifa));
+        Tarifa nuevaTarifa = service.guardar(tarifa);
+        return ResponseEntity.status(HttpStatus.CREATED).body(nuevaTarifa);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Tarifa> actualizar(@PathVariable Long id, @Valid @RequestBody Tarifa tarifa) {
         Tarifa actualizada = service.actualizar(id, tarifa);
 
-        if (actualizada != null) {
-            return ResponseEntity.ok(actualizada);
+        if (actualizada == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(actualizada);
     }
 
     @DeleteMapping("/{id}")

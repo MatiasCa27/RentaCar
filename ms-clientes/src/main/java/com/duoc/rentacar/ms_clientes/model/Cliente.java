@@ -16,12 +16,11 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Clientes")
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Cliente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_cliente;

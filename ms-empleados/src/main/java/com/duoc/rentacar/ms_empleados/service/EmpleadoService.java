@@ -1,14 +1,15 @@
 package com.duoc.rentacar.ms_empleados.service;
 
+import com.duoc.rentacar.ms_empleados.model.Empleado;
+import com.duoc.rentacar.ms_empleados.repository.EmpleadoRepository;
+
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.duoc.rentacar.ms_empleados.model.Empleado;
-import com.duoc.rentacar.ms_empleados.repository.EmpleadoRepository;
 
 @Service
 public class EmpleadoService {
@@ -21,12 +22,11 @@ public class EmpleadoService {
     public List<Empleado> obtenerTodos() {
         logger.info("Consultando nómina completa de empleados");
         return empleadoRepository.findAll();
-    
     }
 
     public Empleado buscarPorId(Long numrun_emp) {
         logger.info("Buscando empleado con RUN: {}", numrun_emp);
-        
+
         if (numrun_emp == null) {
             logger.warn("Se intentó buscar un empleado con RUN nulo");
             return null;
@@ -36,9 +36,7 @@ public class EmpleadoService {
     }
 
     public Empleado registrar(Empleado empleado) {
-        
         if (empleado == null) {
-
             logger.error("No se puede registrar un empleado nulo");
             return null;
         }
@@ -63,12 +61,11 @@ public class EmpleadoService {
         empleadoExistente.setSueldo_base(empleadoActualizado.getSueldo_base());
         empleadoExistente.setEstadoCivil(empleadoActualizado.getEstadoCivil());
         empleadoExistente.setSucursal(empleadoActualizado.getSucursal());
-        
+
         return empleadoRepository.save(empleadoExistente);
     }
 
     public void eliminar(Long numrun_emp) {
-
         if (numrun_emp == null) {
             logger.warn("Se intentó eliminar un empleado con RUN nulo");
             return;

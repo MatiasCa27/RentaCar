@@ -46,14 +46,15 @@ public class TarifaService {
 
         Tarifa tarifaExistente = tarifaRepository.findById(id).orElse(null);
 
-        if (tarifaExistente != null) {
-            tarifaExistente.setDescripcion(tarifa.getDescripcion());
-            tarifaExistente.setValorPorDia(tarifa.getValorPorDia());
-            tarifaExistente.setIdTipoAutoRef(tarifa.getIdTipoAutoRef());
-            return tarifaRepository.save(tarifaExistente);
+        if (tarifaExistente == null) {
+            return null;
         }
 
-        return null;
+        tarifaExistente.setDescripcion(tarifa.getDescripcion());
+        tarifaExistente.setValorPorDia(tarifa.getValorPorDia());
+        tarifaExistente.setIdTipoAutoRef(tarifa.getIdTipoAutoRef());
+
+        return tarifaRepository.save(tarifaExistente);
     }
 
     public void eliminar(Long id) {

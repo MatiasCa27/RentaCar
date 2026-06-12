@@ -1,126 +1,141 @@
--- 1. Crear la Base de Datos (si no la creaste manualmente)
-CREATE DATABASE IF NOT EXISTS RentaCar;
+DROP DATABASE IF EXISTS RentaCar;
+CREATE DATABASE RentaCar;
 USE RentaCar;
 
 -- ==========================================================
 -- 1. MS-UBICACIONES
 -- ==========================================================
-CREATE TABLE REGION (
-    ID_REGION INT AUTO_INCREMENT PRIMARY KEY,
-    NOMBRE_REGION VARCHAR(50) NOT NULL
+
+CREATE TABLE Region (
+    id_region BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre_region VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE COMUNA (
-    ID_COMUNA INT AUTO_INCREMENT PRIMARY KEY,
-    NOMBRE_COMUNA VARCHAR(50) NOT NULL,
-    ID_REGION INT NOT NULL,
-    CONSTRAINT FK_COMUNA_REGION FOREIGN KEY (ID_REGION) REFERENCES REGION(ID_REGION)
+CREATE TABLE Comuna (
+    id_comuna BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre_comuna VARCHAR(50) NOT NULL,
+    id_region BIGINT NOT NULL,
+    CONSTRAINT fk_comuna_region
+        FOREIGN KEY (id_region) REFERENCES Region(id_region)
 );
 
 -- ==========================================================
 -- 2. MS-CATALOGO
 -- ==========================================================
-CREATE TABLE MARCA (
-    ID_MARCA INT AUTO_INCREMENT PRIMARY KEY,
-    NOMBRE_MARCA VARCHAR(50) NOT NULL
+
+CREATE TABLE Marca (
+    id_marca INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_marca VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE AUTO (
-    PATENTE VARCHAR(10) PRIMARY KEY,
-    MODELO VARCHAR(50) NOT NULL,
-    VALOR_RENTA_DIA DECIMAL(12,2),
-    ID_MARCA INT NOT NULL,
-    CONSTRAINT FK_AUTO_MARCA FOREIGN KEY (ID_MARCA) REFERENCES MARCA(ID_MARCA)
+CREATE TABLE Auto (
+    p_auto VARCHAR(6) PRIMARY KEY,
+    modelo_auto VARCHAR(50) NOT NULL,
+    valor_diario DECIMAL(12,2),
+    id_marca INT NOT NULL,
+    CONSTRAINT fk_auto_marca
+        FOREIGN KEY (id_marca) REFERENCES Marca(id_marca)
 );
 
 -- ==========================================================
 -- 3. MS-CLIENTES
 -- ==========================================================
-CREATE TABLE CLIENTE (
-    ID_CLIENTE INT AUTO_INCREMENT PRIMARY KEY,
-    NOMBRE VARCHAR(100) NOT NULL,
-    RUT VARCHAR(12) UNIQUE NOT NULL
+
+CREATE TABLE Clientes (
+    id_cliente BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    rut VARCHAR(12) UNIQUE NOT NULL,
+    correo VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20) NOT NULL
 );
 
 -- ==========================================================
 -- 4. MS-EMPLEADOS
 -- ==========================================================
-CREATE TABLE ESTADO_CIVIL (
-    ID_ESTADO_CIVIL INT AUTO_INCREMENT PRIMARY KEY,
-    DESC_ESTADO_CIVIL VARCHAR(50) NOT NULL
+
+CREATE TABLE EstadoCivil (
+    id_estado_civil BIGINT AUTO_INCREMENT PRIMARY KEY,
+    desc_estado_civil VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE SUCURSAL (
-    ID_SUCURSAL INT AUTO_INCREMENT PRIMARY KEY,
-    NOMBRE_SUCURSAL VARCHAR(100) NOT NULL,
-    ID_COMUNA_REF INT 
+CREATE TABLE Sucursal (
+    id_sucursal BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre_sucursal VARCHAR(100) NOT NULL,
+    id_comuna_ref BIGINT
 );
 
-CREATE TABLE EMPLEADO (
-    NUMRUN_EMP INT PRIMARY KEY,
-    DVRUN_EMP VARCHAR(1),
-    NOMBRE_EMP VARCHAR(100) NOT NULL,
-    APPATERNO_EMP VARCHAR(100),
-    SUELDO_BASE DECIMAL(12,2),
-    ID_ESTADO_CIVIL INT,
-    ID_SUCURSAL INT,
-    CONSTRAINT FK_EMP_ESTADO FOREIGN KEY (ID_ESTADO_CIVIL) REFERENCES ESTADO_CIVIL(ID_ESTADO_CIVIL),
-    CONSTRAINT FK_EMP_SUCURSAL FOREIGN KEY (ID_SUCURSAL) REFERENCES SUCURSAL(ID_SUCURSAL)
+CREATE TABLE Empleado (
+    numrun_emp BIGINT PRIMARY KEY,
+    dvrun_emp VARCHAR(1),
+    nombre_emp VARCHAR(100) NOT NULL,
+    appaterno_emp VARCHAR(100),
+    sueldo_base DECIMAL(12,2),
+    id_estado_civil BIGINT NOT NULL,
+    id_sucursal BIGINT NOT NULL,
+    CONSTRAINT fk_empleado_estado_civil
+        FOREIGN KEY (id_estado_civil) REFERENCES EstadoCivil(id_estado_civil),
+    CONSTRAINT fk_empleado_sucursal
+        FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal)
 );
 
 -- ==========================================================
 -- 5. MS-RENTA
 -- ==========================================================
-CREATE TABLE RENTA (
-    ID_RENTA INT AUTO_INCREMENT PRIMARY KEY,
-    FECHA_INICIO DATETIME DEFAULT CURRENT_TIMESTAMP,
-    DIAS_RENTA INT NOT NULL,
-    MONTO_TOTAL DECIMAL(12,2),
-    RUT_CLIENTE_REF INT,
-    PATENTE_AUTO_REF VARCHAR(10)
+
+CREATE TABLE RentaAuto (
+    id_renta BIGINT AUTO_INCREMENT PRIMARY KEY,
+    fecha_inicio DATE NOT NULL,
+    dias_renta INT NOT NULL,
+    monto_total DECIMAL(12,2) NOT NULL,
+    rut_cliente_ref BIGINT NOT NULL,
+    patente_auto_ref VARCHAR(6) NOT NULL
 );
 
 -- ==========================================================
 -- 6. MS-PAGOS
 -- ==========================================================
-CREATE TABLE PAGO (
-    ID_PAGO INT AUTO_INCREMENT PRIMARY KEY,
-    MONTO DECIMAL(12,2) NOT NULL,
-    ESTADO VARCHAR(20), -- PENDIENTE, PAGADO
-    ID_RENTA_REF INT
+
+CREATE TABLE Pago (
+    id_pago BIGINT AUTO_INCREMENT PRIMARY KEY,
+    monto DECIMAL(12,2) NOT NULL,
+    estado VARCHAR(20) NOT NULL,
+    id_renta_ref BIGINT NOT NULL
 );
 
 -- ==========================================================
 -- 7. MS-INSPECCION
 -- ==========================================================
-CREATE TABLE INSPECCION (
-    ID_INSPECCION INT AUTO_INCREMENT PRIMARY KEY,
-    FECHA_INSPECCION TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    TIPO_INSPECCION VARCHAR(20),
-    KILOMETRAJE INT,
-    NIVEL_COMBUSTIBLE VARCHAR(20),
-    OBSERVACIONES_DANOS VARCHAR(500),
-    ID_RENTA_REF INT
+
+CREATE TABLE Inspeccion (
+    id_inspeccion BIGINT AUTO_INCREMENT PRIMARY KEY,
+    fecha_inspeccion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    tipo_inspeccion VARCHAR(20) NOT NULL,
+    kilometraje INT,
+    nivel_combustible VARCHAR(20),
+    observaciones_danos VARCHAR(500),
+    id_renta_ref BIGINT NOT NULL
 );
 
 -- ==========================================================
 -- 8. MS-MANTENIMIENTO
 -- ==========================================================
-CREATE TABLE MANTENIMIENTO (
-    ID_MANTENIMIENTO INT AUTO_INCREMENT PRIMARY KEY,
-    MOTIVO VARCHAR(200) NOT NULL,
-    FECHA_INGRESO DATE,
-    FECHA_SALIDA DATE,
-    COSTO_REPARACION DECIMAL(12,2),
-    PATENTE_AUTO_REF VARCHAR(10)
+
+CREATE TABLE Mantenimiento (
+    id_mantenimiento BIGINT AUTO_INCREMENT PRIMARY KEY,
+    motivo VARCHAR(200) NOT NULL,
+    fecha_ingreso DATE NOT NULL,
+    fecha_salida DATE,
+    costo_reparacion DECIMAL(12,2),
+    patente_auto_ref VARCHAR(6) NOT NULL
 );
 
 -- ==========================================================
 -- 9. MS-TARIFAS
 -- ==========================================================
-CREATE TABLE TARIFA (
-    ID_TARIFA INT AUTO_INCREMENT PRIMARY KEY,
-    DESCRIPCION VARCHAR(100),
-    VALOR_POR_DIA DECIMAL(12,2) NOT NULL,
-    ID_TIPO_AUTO_REF INT
+
+CREATE TABLE Tarifa (
+    id_tarifa BIGINT AUTO_INCREMENT PRIMARY KEY,
+    descripcion VARCHAR(100) NOT NULL,
+    valor_por_dia DECIMAL(12,2) NOT NULL,
+    id_tipo_auto_ref BIGINT
 );

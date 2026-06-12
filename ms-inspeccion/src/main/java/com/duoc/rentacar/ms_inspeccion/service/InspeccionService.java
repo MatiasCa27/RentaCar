@@ -1,15 +1,16 @@
 package com.duoc.rentacar.ms_inspeccion.service;
 
+import com.duoc.rentacar.ms_inspeccion.model.Inspeccion;
+import com.duoc.rentacar.ms_inspeccion.repository.InspeccionRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.duoc.rentacar.ms_inspeccion.model.Inspeccion;
-import com.duoc.rentacar.ms_inspeccion.repository.InspeccionRepository;
 
 @Service
 public class InspeccionService {
@@ -20,13 +21,17 @@ public class InspeccionService {
     private InspeccionRepository inspeccionRepository;
 
     public Inspeccion registrarInspeccion(Inspeccion inspeccion) {
-        
         if (inspeccion == null) {
             logger.error("No se puede registrar una inspección nula");
             return null;
         }
 
-        logger.info("Registrando {} para la renta ID: {}", inspeccion.getTipo_inspeccion(), inspeccion.getId_renta_ref());
+        logger.info(
+            "Registrando {} para la renta ID: {}",
+            inspeccion.getTipo_inspeccion(),
+            inspeccion.getId_renta_ref()
+        );
+
         inspeccion.setFecha_inspeccion(LocalDateTime.now());
 
         return inspeccionRepository.save(inspeccion);
@@ -68,7 +73,7 @@ public class InspeccionService {
         existente.setNivel_combustible(inspeccion.getNivel_combustible());
         existente.setObservaciones_danos(inspeccion.getObservaciones_danos());
         existente.setId_renta_ref(inspeccion.getId_renta_ref());
-        
+
         return inspeccionRepository.save(existente);
     }
 }
