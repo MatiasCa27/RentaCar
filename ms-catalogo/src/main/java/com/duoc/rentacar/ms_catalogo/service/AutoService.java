@@ -19,14 +19,12 @@ public class AutoService {
     @Autowired
     private AutoRepository autoRepository;
 
-    public List<Auto> obtenerTodos()
-    {
+    public List<Auto> obtenerTodos() {
         logger.info("Consultando catálogo completo de vehículos");
         return autoRepository.findAll();
     }
 
-    public Auto buscarPorPatente(String patente)
-    {
+    public Auto buscarPorPatente(String patente) {
         logger.info("Buscando vehículo con patente: {}", patente);
 
         if (patente == null || patente.isBlank()) {
@@ -37,8 +35,7 @@ public class AutoService {
         return autoRepository.findById(patente).orElse(null);
     }
 
-    public Auto guardarAuto(Auto auto)
-    {
+    public Auto guardarAuto(Auto auto) {
         if (auto == null) {
             logger.error("No se puede registrar un vehículo nulo");
             return null;
@@ -48,14 +45,12 @@ public class AutoService {
         return autoRepository.save(auto);
     }
 
-    public Auto actualizarAuto(String patente, Auto autoActualizado)
-    {
+    public Auto actualizarAuto(String patente, Auto autoActualizado) {
         logger.info("Actualizando vehículo con patente: {}", patente);
 
         Auto autoExistente = autoRepository.findById(patente).orElse(null);
 
-        if (autoExistente == null)
-        {
+        if (autoExistente == null) {
             logger.warn("Vehículo no encontrado con patente: {}", patente);
             return null;
         }
